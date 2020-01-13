@@ -313,7 +313,8 @@ class _DictWrapper(object):
             x: number value
             factor: how much to multiply by
         """
-        self.d[x] = self.d.get(x, 0) * factor
+        #print('x = ', x , ' self.d.get(x,0) = ',self.d.get(x,0))
+        self.d[x] = self.d.get(x, 0) * factor  # 如果x是字典d的key，则d[x]*factor，否则0*factor
 
     def Remove(self, x):
         """Removes a value.
@@ -531,7 +532,8 @@ class Pmf(_DictWrapper):
             float mean
         """
         mu = 0.0
-        for x, p in self.d.iteritems():
+        #for x, p in self.d.iteritems():
+        for x, p in self.d.items():
             mu += p * x
         return mu
 
@@ -1228,7 +1230,8 @@ class Suite(Pmf):
     def Print(self):
         """Prints the hypotheses and their probabilities."""
         for hypo, prob in sorted(self.Items()):
-            print(hypo, prob)
+            # print(hypo, prob)  # 原版
+            print("[",hypo,"] : %f %%"%(prob*100))
 
     def MakeOdds(self):
         """Transforms from probabilities to odds.
